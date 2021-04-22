@@ -1,23 +1,9 @@
 from flask import Flask
-from flask import jsonify
-from flask import request
+
+from routing.route import route_bp
 
 app = Flask(__name__)
-
-
-@app.route("/", methods=["GET", "POST"])
-def welcome():
-    return "Hello world"
-
-
-@app.route("/<string:name>/")
-def hello(name):
-    return "Hello " + name
-
-
-@app.route("/person/")
-def json():
-    return jsonify({"name": "Jimit", "address": "India"})
+app.register_blueprint(route_bp, url_prefix='/')
 
 
 if __name__ == "__main__":
