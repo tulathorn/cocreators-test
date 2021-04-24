@@ -11,6 +11,12 @@ class Monitor:
             "status": 200
         }]
 
+    def search_monitor_list(self, id):
+        for index, element in self.monitor_list:
+            if element[id] == id:
+                return index
+        return -1
+
     def get_lists(self):
         return jsonify(self.monitor_list)
 
@@ -22,6 +28,10 @@ class Monitor:
         return jsonify(self.monitor_list)
 
     def update_website(self, id, data):
+        for index, element in self.monitor_list:
+            if element[id] == id:
+                self.monitor_list[index] = data
+        # Need to return list
         return "Coming soon"
 
     def remove_websit(self, id):
