@@ -15,6 +15,9 @@ class Monitor:
         return jsonify(self.monitor_list)
 
     def add_website(self, data):
+        print(data)
+        id = len(self.monitor_list) + 1
+        data['id'] = id
         self.monitor_list.append(data)
         return jsonify(self.monitor_list)
 

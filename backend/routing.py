@@ -31,7 +31,9 @@ def website_status():
         response = monitor_controller.get_lists()
         return response
     elif request.method == "POST":
-        return "POST"
+        # print(request.json)
+        response = monitor_controller.add_website(request.json)
+        return response
     elif request.method == "PUT":
         return "PUT"
     elif request.method == "DELETE":
