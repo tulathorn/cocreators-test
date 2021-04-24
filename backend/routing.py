@@ -18,3 +18,17 @@ def hello(name):
 @route_bp.route("/person/")
 def json():
     return jsonify({"name": "Jimit", "address": "India"})
+
+
+@route_bp.route("/status", methods=["GET", "POST", "PUT", "DELETE"])
+def website_status():
+    if request.method == "GET":
+        return "GET Web status"
+    elif request.method == "POST":
+        return "POST"
+    elif request.method == "PUT":
+        return "PUT"
+    elif request.method == "DELETE":
+        return "DELETE"
+    else:
+        return "ERROR"
