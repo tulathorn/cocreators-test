@@ -1,3 +1,4 @@
+from types import resolve_bases
 from flask import Blueprint
 from flask import jsonify
 from flask import request
@@ -31,11 +32,12 @@ def website_status():
         response = monitor_controller.get_lists()
         return response
     elif request.method == "POST":
-        # print(request.json)
         response = monitor_controller.add_website(request.json)
         return response
     elif request.method == "PUT":
-        return "PUT"
+        id = request.json["id"]
+        response = monitor_controller.update_website(id, request.json)
+        return response
     elif request.method == "DELETE":
         return "DELETE"
     else:
