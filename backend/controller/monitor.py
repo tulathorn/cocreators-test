@@ -37,4 +37,14 @@ class Monitor:
         return jsonify(self.monitor_list)
 
     def remove_websit(self, id):
-        return "Comming soon"
+        index = self.search_monitor_list(id)
+        if index == -1:
+            return "Error"
+        i = 0
+        temp_list = []
+        while i < len(self.monitor_list):
+            if i != index:
+                temp_list.append(self.monitor_list[i])
+            i += 1
+        self.monitor_list = temp_list
+        return jsonify(self.monitor_list)

@@ -39,6 +39,8 @@ def website_status():
         response = monitor_controller.update_website(id, request.json)
         return response
     elif request.method == "DELETE":
-        return "DELETE"
+        id = request.json["id"]
+        response = monitor_controller.remove_websit(id)
+        return response
     else:
         return "ERROR"
