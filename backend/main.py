@@ -1,6 +1,6 @@
 from flask import Flask
 
-from routing.route import route_bp
+from routing import route_bp
 
 app = Flask(__name__)
 app.register_blueprint(route_bp, url_prefix='/')
