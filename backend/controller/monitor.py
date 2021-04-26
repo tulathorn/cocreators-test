@@ -10,7 +10,8 @@ class Monitor:
             "id": 1,
             "website_name": "example",
             "website_url": "http://example.com",
-            "status": 200
+            "code": 200,
+            "status": "ok"
         }]
 
     def __search_monitor_list(self, id):
@@ -21,7 +22,7 @@ class Monitor:
             index += 1
         return -1
 
-    def __fetch_web_status(self, url):
+    def __fetch_web_code(self, url):
         try:
             response = requests.get(url)
             response.raise_for_status()
@@ -33,12 +34,18 @@ class Monitor:
             code = response.status_code
             return code
 
+    def __check_speed(self, url):
+        speed = "slow"
+        if requests.get(url, timeout=0.25):
+            speed = "ok"
+        return speed
+
     def __update_monitor_status(self):
         index = 0
         while index < len(self.monitor_list):
             url = self.monitor_list[index]["website_url"]
-            code = self.__fetch_web_status(url)
-            self.monitor_list[index]["status"] = code
+            code = self.__fetch_web_code(url)
+            self.monitor_list[index]["code"] = code
             index += 1
         return 1
 
@@ -49,7 +56,7 @@ class Monitor:
     def add_website(self, data):
         print(data)
         id = self.monitor_list[len(self.monitor_list)-1]["id"] + 1
-        data["status"] = self.__fetch_web_status(data["website_url"])
+        data["code"] = self.__fetch_web_code(data["website_url"])
         data["id"] = id
         self.monitor_list.append(data)
         return jsonify(self.monitor_list)
@@ -58,7 +65,7 @@ class Monitor:
         index = self.__search_monitor_list(id)
         if index == -1:
             return jsonify({"error": "Element is not exist"}), 404
-        data["status"] = self.__fetch_web_status(data["website_url"])
+        data["code"] = self.__fetch_web_code(data["website_url"])
         self.monitor_list[index] = data
         return jsonify(self.monitor_list)
 
