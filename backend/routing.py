@@ -10,6 +10,8 @@ route_bp = Blueprint("/", __name__)
 
 monitor_controller = Monitor()
 
+err_tmp = {"error": "Some field missing"}
+
 
 @route_bp.route("/", methods=["GET", "POST"])
 def welcome():
@@ -30,16 +32,21 @@ def json():
 def website_status():
     if request.method == "GET":
         response = monitor_controller.get_lists()
-        print(response.status)
         return response
     elif request.method == "POST":
+        if request.json["website_name"] == "" or request.json["website_url"] == "":
+            return jsonify(err_tmp), 400
         response = monitor_controller.add_website(request.json)
         return response
     elif request.method == "PUT":
+        if request.json["id"] == "" or request.json["website_name"] == "" or request.json["website_url"] == "":
+            return jsonify(err_tmp), 400
         id = request.json["id"]
         response = monitor_controller.update_website(id, request.json)
         return response
     elif request.method == "DELETE":
+        if request.json["id"] == "":
+            return jsonify(err_tmp), 400
         id = request.json["id"]
         response = monitor_controller.remove_websit(id)
         return response
