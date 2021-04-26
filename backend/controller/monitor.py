@@ -46,6 +46,10 @@ class Monitor:
             url = self.monitor_list[index]["website_url"]
             code = self.__fetch_web_code(url)
             self.monitor_list[index]["code"] = code
+            if code != 200:
+                self.monitor_list[index]["status"] = "error"
+            else:
+                self.monitor_list[index]["status"] = self.__check_speed(url)
             index += 1
         return 1
 
@@ -58,6 +62,10 @@ class Monitor:
         id = self.monitor_list[len(self.monitor_list)-1]["id"] + 1
         data["code"] = self.__fetch_web_code(data["website_url"])
         data["id"] = id
+        if data["code"] != 200:
+            data["status"] = "error"
+        else:
+            data["status"] = self.__check_speed(data["website_url"])
         self.monitor_list.append(data)
         return jsonify(self.monitor_list)
 
@@ -66,6 +74,10 @@ class Monitor:
         if index == -1:
             return jsonify({"error": "Element is not exist"}), 404
         data["code"] = self.__fetch_web_code(data["website_url"])
+        if data["code"] != 200:
+            data["status"] = "error"
+        else:
+            data["status"] = self.__check_speed(data["website_url"])
         self.monitor_list[index] = data
         return jsonify(self.monitor_list)
 
