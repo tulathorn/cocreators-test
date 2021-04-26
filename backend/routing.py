@@ -30,6 +30,7 @@ def json():
 def website_status():
     if request.method == "GET":
         response = monitor_controller.get_lists()
+        print(response.status)
         return response
     elif request.method == "POST":
         response = monitor_controller.add_website(request.json)

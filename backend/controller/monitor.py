@@ -57,7 +57,7 @@ class Monitor:
     def update_website(self, id, data):
         index = self.__search_monitor_list(id)
         if index == -1:
-            return "Error"
+            return jsonify({"error": "Element is not exist"}), 404
         data["status"] = self.__fetch_web_status(data["website_url"])
         self.monitor_list[index] = data
         return jsonify(self.monitor_list)
@@ -65,7 +65,7 @@ class Monitor:
     def remove_websit(self, id):
         index = self.__search_monitor_list(id)
         if index == -1:
-            return "Error"
+            return jsonify({"error": "Element is not exist"}), 404
         i = 0
         temp_list = []
         while i < len(self.monitor_list):
