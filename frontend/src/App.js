@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Layout, Button, Row, Col, Modal } from "antd";
+import { Layout, Button, Row, Col, Modal, Form, Input } from "antd";
 import StatusCard from "./components/StatusCard";
 
 import "antd/dist/antd.css";
@@ -75,15 +75,48 @@ const App = () => {
             </Row>
           </div>
           <Modal
-            title="Vertically centered modal dialog"
+            title="Add new website"
             centered
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
+            footer={[
+              <Button
+                type="primary"
+                form="addWebsite"
+                key="submit"
+                htmlType="submit"
+              >
+                Submit
+              </Button>,
+            ]}
           >
-            <p>some contents...</p>
-            <p>some contents...</p>
-            <p>some contents...</p>
+            <Form id="addWebsite">
+              <Form.Item
+                label="Website URL"
+                name="url"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your url with http:// or https://",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Website Name"
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your website name",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Form>
           </Modal>
         </Content>
       </Layout>
