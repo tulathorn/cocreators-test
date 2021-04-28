@@ -1,6 +1,7 @@
-import React from "react";
-import { Layout, Button, Row, Col, Card, DatePicker } from "antd";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
+import { Layout, Button, Row, Col, Card, DatePicker } from "antd";
 import StatusCard from "./components/StatusCard";
 
 import "antd/dist/antd.css";
@@ -9,6 +10,23 @@ import "./App.css";
 const { Header, Footer, Sider, Content } = Layout;
 
 const App = () => {
+  const [webLists, setWebLists] = useState("");
+  const url = "http://localhost:4400/api/";
+
+  const getAllWebLists = () => {
+    axios
+      .get(`${url}status`)
+      .then((response) => {
+        console.log("response", response);
+        setWebLists(response.data);
+      })
+      .catch((err) => console.log(`Error ${err}`));
+  };
+
+  useEffect(() => {
+    getAllWebLists();
+  }, []);
+
   return (
     <div>
       <Layout>
@@ -29,11 +47,7 @@ const App = () => {
               justify="space-around"
               gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
             >
-              <Card title={"website-name"} style={{ width: 300, margin: 10 }}>
-                <p>{"url"}</p>
-                <p>Code: {200}</p>
-                <p>Status: {"ok"}</p>
-              </Card>
+              {/* <StatusCard />
               <StatusCard />
               <StatusCard />
               <StatusCard />
@@ -47,8 +61,14 @@ const App = () => {
               <StatusCard />
               <StatusCard />
               <StatusCard />
-              <StatusCard />
-              <StatusCard />
+              <StatusCard /> */}
+              {webLists ? (
+                webLists.map((element) => (
+                  <StatusCard key={element.id.toString()} value={element} />
+                ))
+              ) : (
+                <p>loading ....</p>
+              )}
             </Row>
           </div>
         </Content>
