@@ -1,11 +1,12 @@
 import React from "react";
 import { Layout, Button, Row, Col, Card, DatePicker } from "antd";
 
+import StatusCard from "./components/StatusCard";
+
 import "antd/dist/antd.css";
 import "./App.css";
 
 const { Header, Footer, Sider, Content } = Layout;
-const style = { background: "#0092ff", padding: "8px 0" };
 
 const App = () => {
   return (
@@ -33,22 +34,21 @@ const App = () => {
                 <p>Code: {200}</p>
                 <p>Status: {"ok"}</p>
               </Card>
-              <Card title="Card" style={{ width: 300, margin: 10 }}>
-                <p>Card content</p>
-                <p>Card content</p>
-              </Card>
-              <Card title="Card" style={{ width: 300, margin: 10 }}>
-                <p>Card content</p>
-                <p>Card content</p>
-              </Card>
-              <Card title="Card" style={{ width: 300, margin: 10 }}>
-                <p>Card content</p>
-                <p>Card content</p>
-              </Card>
-              <Card title="Card" style={{ width: 300, margin: 10 }}>
-                <p>Card content</p>
-                <p>Card content</p>
-              </Card>
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
+              <StatusCard />
             </Row>
           </div>
         </Content>
