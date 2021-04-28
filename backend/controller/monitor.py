@@ -28,8 +28,10 @@ class Monitor:
             response.raise_for_status()
         except HTTPError as http_err:
             print(f'HTTP error occurred: {http_err}')
+            return 500
         except Exception as err:
             print(f'Other error occurred: {err}')
+            return 500
         else:
             code = response.status_code
             return code
