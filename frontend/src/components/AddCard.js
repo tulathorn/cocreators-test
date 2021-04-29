@@ -5,10 +5,20 @@ import { Button, Card, Form, Input } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 
 const AddCard = (props) => {
-  const { cancleState } = props;
+  const { cancleState, lists } = props;
+
+  const url = "http://localhost:4400/api/";
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    axios
+      .post(`${url}status`, {
+        website_url: values.url,
+        website_name: values.name,
+      })
+      .then((res) => lists(res.data))
+      .catch((err) => console.log(("Error", err)));
+    cancleState(false);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -18,6 +28,7 @@ const AddCard = (props) => {
   const onCancel = () => {
     cancleState(false);
   };
+
   return (
     <Card title={`Add new website`} style={{ width: 400, margin: 10 }}>
       <Form id="addWebsite" onFinish={onFinish} onFinishFailed={onFinishFailed}>

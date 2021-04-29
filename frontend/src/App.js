@@ -8,7 +8,7 @@ import StatusCard from "./components/StatusCard";
 import "antd/dist/antd.css";
 import "./App.css";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
 const App = () => {
   const [webLists, setWebLists] = useState("");
@@ -58,7 +58,11 @@ const App = () => {
               justify="space-around"
               gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
             >
-              {showAddCard ? <AddCard cancleState={setShowAddCards} /> : ""}
+              {showAddCard ? (
+                <AddCard lists={setWebLists} cancleState={setShowAddCards} />
+              ) : (
+                ""
+              )}
               {webLists ? (
                 webLists.map((element) => (
                   <StatusCard key={element.id.toString()} value={element} />
