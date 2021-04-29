@@ -5,11 +5,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 const StatusCard = (props) => {
   const { value } = props;
   return (
-    <Card
-      title={value.website_name}
-      style={{ width: 300, margin: 10 }}
-      actions={[<EditOutlined key="edit" />, <DeleteOutlined key="delete" />]}
-    >
+    <Card title={value.website_name} style={{ width: 400, margin: 10 }}>
       <p>
         URL:
         <a href={value.website_url}> {value.website_url}</a>
