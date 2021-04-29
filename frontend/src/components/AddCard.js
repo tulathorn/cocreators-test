@@ -5,9 +5,7 @@ import { Button, Card, Form, Input } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 
 const AddCard = (props) => {
-  const { value } = props;
-
-  const submitForm = () => {};
+  const { cancleState } = props;
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -15,6 +13,10 @@ const AddCard = (props) => {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const onCancel = () => {
+    cancleState(false);
   };
   return (
     <Card title={`Add new website`} style={{ width: 400, margin: 10 }}>
@@ -50,6 +52,9 @@ const AddCard = (props) => {
             style={{ width: 150, marginLeft: 2 }}
           >
             <SaveOutlined /> Save
+          </Button>
+          <Button onClick={onCancel} style={{ width: 150, marginLeft: 10 }}>
+            Cancle
           </Button>
         </Form.Item>
       </Form>

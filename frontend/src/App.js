@@ -14,8 +14,6 @@ const App = () => {
   const [webLists, setWebLists] = useState("");
   const url = "http://localhost:4400/api/";
 
-  // const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [showAddCard, setShowAddCards] = useState(false);
 
   const addWebsite = () => {
@@ -60,7 +58,7 @@ const App = () => {
               justify="space-around"
               gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
             >
-              {showAddCard ? <AddCard /> : ""}
+              {showAddCard ? <AddCard cancleState={setShowAddCards} /> : ""}
               {webLists ? (
                 webLists.map((element) => (
                   <StatusCard key={element.id.toString()} value={element} />
