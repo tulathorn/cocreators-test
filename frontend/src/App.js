@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Layout, Button, Row, Col, Modal, Form, Input } from "antd";
+import { Layout, Button, Row, Col } from "antd";
 import AddCard from "./components/AddCard";
 import StatusCard from "./components/StatusCard";
 
@@ -65,7 +65,12 @@ const App = () => {
               )}
               {webLists ? (
                 webLists.map((element) => (
-                  <StatusCard key={element.id.toString()} value={element} />
+                  <StatusCard
+                    key={element.id.toString()}
+                    elementId={element.id}
+                    element={element}
+                    lists={setWebLists}
+                  />
                 ))
               ) : (
                 <p>loading ....</p>
