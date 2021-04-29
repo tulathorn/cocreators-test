@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Layout, Button, Row, Col, Modal, Form, Input } from "antd";
+import AddCard from "./components/AddCard";
 import StatusCard from "./components/StatusCard";
 
 import "antd/dist/antd.css";
@@ -13,7 +14,13 @@ const App = () => {
   const [webLists, setWebLists] = useState("");
   const url = "http://localhost:4400/api/";
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [showAddCard, setShowAddCards] = useState(false);
+
+  const addWebsite = () => {
+    setShowAddCards(!showAddCard);
+  };
 
   const getAllWebLists = () => {
     axios
@@ -23,18 +30,6 @@ const App = () => {
         setWebLists(response.data);
       })
       .catch((err) => console.log(`Error ${err}`));
-  };
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
   };
 
   useEffect(() => {
@@ -55,7 +50,7 @@ const App = () => {
                 <Button
                   type="primary"
                   style={{ marginLeft: 8 }}
-                  onClick={showModal}
+                  onClick={addWebsite}
                 >
                   Add website
                 </Button>
@@ -65,6 +60,7 @@ const App = () => {
               justify="space-around"
               gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
             >
+              {showAddCard ? <AddCard /> : ""}
               {webLists ? (
                 webLists.map((element) => (
                   <StatusCard key={element.id.toString()} value={element} />
@@ -74,50 +70,6 @@ const App = () => {
               )}
             </Row>
           </div>
-          <Modal
-            title="Add new website"
-            centered
-            visible={isModalVisible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={[
-              <Button
-                type="primary"
-                form="addWebsite"
-                key="submit"
-                htmlType="submit"
-              >
-                Submit
-              </Button>,
-            ]}
-          >
-            <Form id="addWebsite">
-              <Form.Item
-                label="Website URL"
-                name="url"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your url with http:// or https://",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="Website Name"
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your website name",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Form>
-          </Modal>
         </Content>
       </Layout>
     </div>
