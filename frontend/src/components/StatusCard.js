@@ -13,14 +13,17 @@ const StatusCard = (props) => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    // axios
-    //   .put(`${url}status`, {
-    //     id: elementId,
-    //     website_url: values.url,
-    //     website_name: values.name,
-    //   })
-    //   .then((res) => lists(res.data))
-    //   .catch((err) => console.log(("Error", err)));
+    axios
+      .put(`${url}status`, {
+        id: elementId,
+        website_url: values.url,
+        website_name: values.name,
+      })
+      .then((res) => {
+        setShowForm(!showForm);
+        lists(res.data);
+      })
+      .catch((err) => console.log(("Error", err)));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -32,7 +35,21 @@ const StatusCard = (props) => {
   };
 
   const onDelete = () => {
-    console.log("cancel");
+    console.log("Element ID", elementId);
+    // axios
+    //   .delete(`${url}status`, {
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Access-Control-Allow-Headers": "Content-Type",
+    //       crossDomain: true,
+    //       contentType: "application/json; charset=utf-8",
+    //     },
+    //     body: {
+    //       id: elementId,
+    //     },
+    //   })
+    //   .then((res) => lists(res.data))
+    //   .catch((err) => console.log(("Error", err)));
   };
 
   const DisplayData = (data) => (
