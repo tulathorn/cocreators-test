@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { Button, Card, Form, Input } from "antd";
+import { Button, Card, Form, Input, Row } from "antd";
 import { SaveOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const StatusCard = (props) => {
@@ -74,7 +74,13 @@ const StatusCard = (props) => {
   );
 
   const DisplayEditForm = (data) => (
-    <div>
+    <React.Fragment>
+      <Row>
+        <p>
+          Current URL:
+          <a href={data.value.website_url}> {data.value.website_url}</a>
+        </p>
+      </Row>
       <Form id="edit" onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Form.Item
           label="Website URL"
@@ -119,7 +125,7 @@ const StatusCard = (props) => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </React.Fragment>
   );
 
   return (
