@@ -33,7 +33,7 @@ def json():
     return jsonify({"name": "Jimit", "address": "India"})
 
 
-@cross_origin()
+@cross_origin(origin='*')
 @route_bp.route("/status", methods=["GET", "POST", "PUT", "DELETE"])
 def website_status():
     if request.method == "GET":
@@ -54,7 +54,6 @@ def website_status():
         if request.json["id"] == "":
             return jsonify(err_tmp), 400
         id = request.json["id"]
-        print("ID found" + id)
         response = monitor_controller.remove_websit(id)
         return response
     else:

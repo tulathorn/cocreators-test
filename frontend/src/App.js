@@ -44,7 +44,7 @@ const App = () => {
           <div className="site-layout-content">
             <Row justify="space-between">
               <Col span={8}>Number of source: {webLists.length}</Col>
-              <Col span={2}>
+              <Col span={4}>
                 <Button
                   type="primary"
                   style={{ marginLeft: 8 }}

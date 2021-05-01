@@ -36,20 +36,14 @@ const StatusCard = (props) => {
 
   const onDelete = () => {
     console.log("Element ID", elementId);
-    // axios
-    //   .delete(`${url}status`, {
-    //     headers: {
-    //       "Access-Control-Allow-Origin": "*",
-    //       "Access-Control-Allow-Headers": "Content-Type",
-    //       crossDomain: true,
-    //       contentType: "application/json; charset=utf-8",
-    //     },
-    //     body: {
-    //       id: elementId,
-    //     },
-    //   })
-    //   .then((res) => lists(res.data))
-    //   .catch((err) => console.log(("Error", err)));
+    axios
+      .delete(`${url}status`, {
+        data: {
+          id: 1,
+        },
+      })
+      .then((res) => lists(res.data))
+      .catch((err) => console.log(("Error", err)));
   };
 
   const DisplayData = (data) => (
