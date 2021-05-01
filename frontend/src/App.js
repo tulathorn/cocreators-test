@@ -31,7 +31,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    getAllWebLists();
+    const interval = setInterval(() => {
+      getAllWebLists();
+    }, 2000);
   }, []);
 
   return (
