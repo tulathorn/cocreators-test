@@ -1,18 +1,27 @@
 from flask import jsonify
 import requests
 from requests.exceptions import HTTPError
+import json
+
+filename = 'data.json'
+
+# Opening JSON file
+with open(filename, 'r') as openfile:
+    # Reading from json file
+    json_object = json.load(openfile)
 
 
 class Monitor:
     def __init__(self) -> None:
         self.data = []
-        self.monitor_list = [{
-            "id": 1,
-            "website_name": "example",
-            "website_url": "http://example.com",
-            "code": 200,
-            "status": "ok"
-        }]
+        # self.monitor_list = [{
+        #     "id": 1,
+        #     "website_name": "example",
+        #     "website_url": "http://example.com",
+        #     "code": 200,
+        #     "status": "ok"
+        # }]
+        self.monitor_list = json_object
 
     def __search_monitor_list(self, id):
         index = 0
@@ -55,6 +64,11 @@ class Monitor:
             index += 1
         return 1
 
+    def __write_file(self):
+        with open(filename, "w") as outfile:
+            json.dump(self.monitor_list, outfile)
+        return self.monitor_list
+
     def get_lists(self):
         self.__update_monitor_status()
         return jsonify(self.monitor_list)
@@ -69,7 +83,8 @@ class Monitor:
         else:
             data["status"] = self.__check_speed(data["website_url"])
         self.monitor_list.append(data)
-        return jsonify(self.monitor_list)
+        lists = self.__write_file()
+        return jsonify(lists)
 
     def update_website(self, id, data):
         index = self.__search_monitor_list(id)
@@ -80,8 +95,9 @@ class Monitor:
             data["status"] = "error"
         else:
             data["status"] = self.__check_speed(data["website_url"])
-        self.monitor_list[index] = data
-        return jsonify(self.monitor_list)
+        self.monitor_list.append(data)
+        lists = self.__write_file()
+        return jsonify(lists)
 
     def remove_websit(self, id):
         index = self.__search_monitor_list(id)
@@ -94,4 +110,5 @@ class Monitor:
                 temp_list.append(self.monitor_list[i])
             i += 1
         self.monitor_list = temp_list
-        return jsonify(self.monitor_list)
+        lists = self.__write_file()
+        return jsonify(lists)
