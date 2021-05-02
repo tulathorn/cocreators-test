@@ -1,4 +1,3 @@
-from types import resolve_bases
 from flask import Blueprint
 from flask import jsonify
 from flask import request
