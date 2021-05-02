@@ -48,7 +48,8 @@ To start the project without docker, you require to have:
 ### Startup the backend
 
 1. Open terminal and navigate to `/backend`.
-2. Run command ```
+2. Run command `pip install -r requirements.txt`
+3. Then, starting the server by `python3 main.py`
 
 #### Startup the frontend
 
