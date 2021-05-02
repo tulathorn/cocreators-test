@@ -33,7 +33,7 @@ const App = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       getAllWebLists();
-    }, 2000);
+    }, 10000);
   }, []);
 
   return (
